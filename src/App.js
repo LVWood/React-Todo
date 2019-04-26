@@ -1,39 +1,145 @@
 import React from 'react';
-import TodoList from './components/TodoComponents/TodoList'
-// import Todo from './components/TodoComponents/Todo'
+import './App.css';
 import TodoForm from './components/TodoComponents/TodoForm'
+import Todo from './components/TodoComponents/Todo'
 
 class App extends React.Component {
+  inputElement = React.createRef()  
   constructor() {
     super();
     this.state = {
       listArray: [],
-    };
+      currentItem: {text:'', key:'', completed:''}
+    }
   }
 
-  addListItem = newItem => {
-    this.setState({ listArray: [...this.state.listArray, newItem] })
-  }
-
-  clearAllItems() {
+  clearCompleted = e => {
+    e.preventDefault()
     this.setState({
-      emptyArray: []
+      listArray: this.state.listArray.filter(current => {
+        return !current.completed
+      })
     })
   }
 
+  completeItem = task => {
+    const completedItems = this.state.listArray.map(item => {
+      if (item.key === task.key) {
+        return { 
+          ...task, 
+          completed: !task.completed
+        }
+      } else return item
+    })
+    this.setState({
+      listArray: completedItems
+    })
+  }
+
+  handleInput = e => {
+    const itemText = e.target.value
+    const currentItem = { text: itemText, key: Date.now(), completed: false }
+    this.setState({
+      currentItem,
+    })
+  }
+
+  addItem = e => {
+    e.preventDefault()
+    const newItem = this.state.currentItem
+    if (newItem.text !== '') {
+      const items = [...this.state.listArray, newItem]
+      this.setState({
+        listArray: items,
+        currentItem: { text: '', key: '', completed: ''},
+      })
+    }
+  }
+    
+
   render() {
-    const {listArray} = this.state
     return (
-      <div className="todoListMain">
-        <div className="header">
-          <h1>Here's my to-do list</h1>
-          <TodoList todoList={listArray}>{listArray}</TodoList> 
-          <TodoForm addListItem={this.addListItem}/>
-        </div>
+      <div className="App">
+        <TodoForm 
+          addItem={this.addItem} 
+          inputElement={this.inputElement} 
+          handleInput={this.handleInput}
+          currentItem = {this.state.currentItem} 
+          clearCompleted = {this.clearCompleted}
+          />
+        <Todo 
+          entries={this.state.listArray} 
+          completeItem={this.completeItem}
+          
+          />
       </div>
-     
     )
   }
 }
 
 export default App;
+
+
+/////////////////////////////////////////////////////
+// CODE FROM TUTORIAL
+
+// class App extends React.Component {
+//   inputElement = React.createRef()
+//   constructor() {
+//     super()
+//     this.state = {
+//       items: [],
+//       currentItem: {text:'', key:''}
+//     }
+//   }
+
+//   deleteItem = key => {
+//     const filteredItems = this.state.items.filter(item => {
+//       return item.key !== key
+//     })
+//     this.setState({
+//       items: filteredItems,
+//     })
+//   }
+
+//   handleInput = e => {
+//     const itemText = e.target.value
+//     const currentItem = { text: itemText, key: Date.now() }
+//     this.setState({
+//       currentItem,
+//     })
+//   }
+
+//   addItem = e => {
+//     e.preventDefault()
+//     const newItem = this.state.currentItem
+//     if (newItem.text !== '') {
+//       console.log(newItem)
+//       const items = [...this.state.items, newItem]
+//       this.setState({
+//         items: items,
+//         currentItem: { text: '', key: ''},
+//       })
+//     }
+//   }
+  
+ 
+
+//   render() {
+//     return (
+//       <div className="App">
+//         <TodoList 
+//           addItem={this.addItem} 
+//           inputElement={this.inputElement} 
+//           handleInput={this.handleInput}
+//           currentItem = {this.state.currentItem} 
+//           />
+//         <Todo 
+//           entries={this.state.items} 
+//           deleteItem={this.deleteItem}
+//           />
+//       </div>
+//     )
+//   }
+// }
+// export default App
