@@ -1,27 +1,22 @@
 import React from 'react';
-//////////////////////////////////////
-// CODE FROM TUTORIAL
+
 
 class Todo extends React.Component {
-
-    createTasks = item => {
-        return <li key={item.key} onClick={() => this.props.completeItem(item)} > {item.text} </li>
+    componentDidUpdate() {
+        this.props.inputElement.current.focus()
     }
     render() {
-        const todoEntries = this.props.entries
-        const listItems = todoEntries.map(this.createTasks)
-
         return (
-            <div>
-                <ul className="theList">{listItems}</ul>
+            <div className="todoListMain">
+                <div className="header">
+                    <h1>my to-do list</h1>
+                    
+
+                </div>
+
             </div>
-            
         )
-        
     }
 }
 
-
 export default Todo
-
-// 
