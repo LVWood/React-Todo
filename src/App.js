@@ -61,9 +61,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Todo 
-          inputElement={this.inputElement}
-          />
+        <div className="header">
+          <h1>My to-do list</h1>
+        </div>
         <TodoForm 
           addItem={this.addItem} 
           inputElement={this.inputElement} 
