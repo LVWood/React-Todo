@@ -10,7 +10,7 @@ class TodoList extends React.Component {
     render() {
         const todoEntries = this.props.entries
         const listItems = todoEntries.map(this.createTasks)
-        return <Todo listItems={listItems}/>     
+        return <Todo listItems={listItems}/>   //I danced around this forever! Why don't I need {this.listItems} here?  
     }
 }
 
