@@ -1,11 +1,52 @@
 .App {
-    border: 1px solid red;
+    box-sizing: border-box;
+    background-image: url("notebook-paper-page-texture-236012.jpg");
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-color: rgb(204, 203, 203);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    text-align: center;
+    font-family: 'Zeyada', cursive;
+    letter-spacing: .1rem;
+    color: darkblue;
     min-height: 100vh;
-    margin: 20px 100px;
+    margin: 20px 75px;
+    padding: 0 30px;
+}
+
+.header {
+    width: 100%;
+    padding: 0;
+}
+
+.todoListMain {
+    width: 100%;
+}
+
+form {
+    width: 100%;
+}
+
+button {
+    background-color: rgba(255, 208, 0, 0.753);
+}
+
+.todo-list {
+    width: 100%;
+}
+
+.todo-list ul {
+    color: darkblue;
+    list-style-type: none;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    padding: 0;
+}
+
+.complete-todo {
+    text-decoration: line-through;
 }
 
